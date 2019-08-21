@@ -19,12 +19,12 @@ class NotFoundControllerSpec extends Specification {
     @Inject
     EmbeddedServer embeddedServer
 
-    @AutoCleanup @Inject @Client("/")
+    @AutoCleanup @Inject @Client(value = "/", errorType = MyError)
     RxHttpClient client
 
     void "test 404 status"() {
         when:
-        client.toBlocking().exchange("/notFound", MyError)
+        client.toBlocking().exchange("/notFound")
 
         then:
         HttpClientResponseException exception = thrown(HttpClientResponseException)
