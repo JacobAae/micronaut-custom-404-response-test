@@ -5,7 +5,6 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
 import io.micronaut.http.client.RxHttpClient
-import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import spock.lang.AutoCleanup
 import spock.lang.Specification
@@ -24,7 +23,7 @@ class NotFoundControllerSpec extends Specification {
 
     void "test 404 status"() {
         when:
-        client.toBlocking().exchange("/notFound")
+        client.toBlocking().exchange("/notFound", MyError)
 
         then:
         HttpClientResponseException exception = thrown(HttpClientResponseException)
